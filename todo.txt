@@ -1,0 +1,27 @@
+inputs 
+
+Login screen  
+- reg no 
+- password
+Reg screen 
+- reg no 
+- name 
+- branch 
+- section
+- batch 
+- password
+- confirm password 
+
+Home screen 
+- student profile
+- my quizzes 
+- enter quiz 
+
+Quiz screen 
+- question
+- 4 options 
+- timer 
+- submit button 
+
+Result screen 
+- score
