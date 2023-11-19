@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 function BottomTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Profile"
+      initialRouteName="Home"
       screenOptions={({ route }) => ({
         tabBarStyle: {
           backgroundColor: colors.secondary,

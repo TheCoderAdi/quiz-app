@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { View, Text, StyleSheet, Animated, Touchable, TouchableOpacity } from 'react-native';
 import Colors, { containerStyle } from '../constants/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ResultScreen = ({ route }) => {
+const ResultScreen = ({ route, navigation }) => {
     const { score, totalQuestions } = route.params;
     const scorePercentage = (score / totalQuestions) * 100;
 
@@ -26,7 +26,9 @@ const ResultScreen = ({ route }) => {
             useNativeDriver: true,
         }).start();
     }, [animatedValue]);
-
+    const goBack = () => {
+        navigation.replace('Main');
+    };
     return (
         <View style={[styles.container, containerStyle]}>
             <Animated.View
@@ -51,6 +53,26 @@ const ResultScreen = ({ route }) => {
                 </Text>
                 <Text style={styles.scorePercentage}>{scorePercentage}%</Text>
             </Animated.View>
+            <Animated.View
+                style={[
+                    {
+                        opacity: animatedValue,
+                        transform: [
+                            {
+                                translateX: animatedValue.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [300, 0],
+                                }),
+                            },
+                        ],
+                    },
+                ]}
+
+            >
+                <TouchableOpacity style={styles.button} onPress={() => goBack()}>
+                    <Text style={styles.buttonText}>Go to Home</Text>
+                </TouchableOpacity>
+            </Animated.View>
         </View>
     );
 };
@@ -66,6 +88,7 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 10,
         backgroundColor: Colors.secondary,
+        width: "80%"
     },
     resultText: {
         fontSize: 24,
@@ -82,6 +105,19 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: Colors.accent,
+    },
+    button: {
+        backgroundColor: Colors.accent,
+        padding: 15,
+        borderRadius: 8,
+        width: '40%',
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    buttonText: {
+        color: Colors.primary,
+        fontSize: 18,
+        fontWeight: 'bold'
     },
 });
 
