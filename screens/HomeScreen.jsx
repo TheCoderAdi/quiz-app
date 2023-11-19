@@ -6,12 +6,9 @@ import EnterQuiz from '../components/EnterQuiz';
 
 const HomeScreen = ({ navigation }) => {
 
-    const enterQuiz = () => {
-        navigation.navigate('EnterQuiz');
-    };
 
     return (
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: Colors.primary }}>
             <View style={[{ ...containerStyle }, styles.container]}>
                 <StudentProfile />
                 <EnterQuiz />
@@ -24,7 +21,7 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 10
+        padding: 10,
     },
     button: {
         backgroundColor: Colors.secondary,
