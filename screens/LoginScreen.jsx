@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Colors, { containerStyle } from "../constants/colors"
+import { Ionicons } from '@expo/vector-icons';
+
 
 const LoginScreen = ({ navigation }) => {
+    const [password, setPassword] = useState('');
+    const [regNo, setRegNo] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
     return (
         <View style={[containerStyle, { ...styles.container }]}>
             <Text style={styles.title}>Login</Text>
@@ -10,13 +16,23 @@ const LoginScreen = ({ navigation }) => {
                 style={styles.input}
                 placeholder="Registration Number"
                 placeholderTextColor={Colors.textDark}
+                keyboardType='numeric'
+                value={regNo}
+                onChangeText={text => setRegNo(text)}
             />
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                placeholderTextColor={Colors.textDark}
-                secureTextEntry={true}
-            />
+            <View style={styles.passwordInput}>
+                <TextInput
+                    placeholder="Password"
+                    placeholderTextColor={Colors.textDark}
+                    secureTextEntry={!showPassword}
+                    value={password}
+                    onChangeText={text => setPassword(text)}
+                    style={{ color: Colors.text }}
+                />
+                <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                    <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color={Colors.text} />
+                </TouchableOpacity>
+            </View>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Main')}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
@@ -43,6 +59,20 @@ const styles = StyleSheet.create({
         padding: 15,
         marginBottom: 15,
         borderRadius: 8,
+        color: Colors.text,
+    },
+    passwordInput: {
+        backgroundColor: Colors.secondary,
+        width: '100%',
+        padding: 15,
+        marginBottom: 15,
+        borderRadius: 8,
+        color: Colors.text,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    }, passwordField: {
+        flex: 1,
         color: Colors.text,
     },
     button: {
